@@ -1,0 +1,248 @@
+.book-detail-page {
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.back-btn {
+  padding: 10px 20px;
+  background: white;
+  border: 2px solid var(--gray-300);
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: 32px;
+  font-family: var(--font-primary);
+}
+
+.back-btn:hover {
+  background: var(--gray-100);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.book-detail-container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 60px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.book-detail-image {
+  position: relative;
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.book-detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: var(--shadow-xl);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--gradient-secondary);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.book-detail-content {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.book-detail-category {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--primary-light);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.book-detail-title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--gray-900);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.book-detail-author {
+  font-size: 1.3rem;
+  color: var(--gray-600);
+  margin-bottom: 20px;
+}
+
+.book-detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.book-detail-rating .stars {
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+.rating-text {
+  color: var(--gray-600);
+  font-weight: 600;
+}
+
+.book-detail-price {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.book-detail-price .current-price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.book-detail-price .original-price {
+  font-size: 1.5rem;
+  color: var(--gray-500);
+  text-decoration: line-through;
+}
+
+.book-detail-stock {
+  margin-bottom: 32px;
+}
+
+.in-stock {
+  color: var(--success);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.out-of-stock {
+  color: var(--danger);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.book-detail-actions {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-weight: 600;
+}
+
+.book-detail-actions .quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gray-100);
+  border-radius: 12px;
+  padding: 8px;
+}
+
+.book-detail-actions .quantity-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: white;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.book-detail-actions .quantity-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.quantity-display {
+  font-weight: 700;
+  min-width: 40px;
+  text-align: center;
+}
+
+.book-detail-info {
+  margin-bottom: 40px;
+}
+
+.book-detail-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  gap: 12px;
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.info-value {
+  color: var(--gray-600);
+}
+
+.book-description h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.book-description p {
+  line-height: 1.8;
+  color: var(--gray-700);
+  font-size: 1.05rem;
+}
+
+@media (max-width: 1024px) {
+  .book-detail-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .book-detail-title {
+    font-size: 2rem;
+  }
+
+  .book-detail-price .current-price {
+    font-size: 2rem;
+  }
+
+  .book-detail-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

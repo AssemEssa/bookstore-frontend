@@ -1,0 +1,39 @@
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: white;
+  border: 2px solid var(--gray-200);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-primary);
+  color: var(--gray-700);
+}
+
+.language-switcher:hover {
+  background: var(--gray-100);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.lang-icon {
+  font-size: 1.1rem;
+}
+
+.lang-text {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .lang-text {
+    display: none;
+  }
+  
+  .language-switcher {
+    padding: 8px 12px;
+  }
+}
