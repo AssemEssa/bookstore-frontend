@@ -176,8 +176,6 @@ const AdminDashboard = () => {
     return order.orderStatus === 'cancelled';
   };
 
-  const isOrderDeletable = (order) => order.orderStatus === 'cancelled';
-
   return (
     <div className="admin-page">
       <div className="container-fluid">
