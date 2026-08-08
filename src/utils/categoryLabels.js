@@ -4,7 +4,7 @@
  * @param {string} language - Current language ('en' or 'ar')
  * @returns {string} Translated category label
  */
-export const getCategoryLabel = (category, language = 'en') => {
+export function getCategoryLabel(category, language = 'en') {
   const categoryTranslations = {
     en: {
       'Fiction': 'Fiction',
@@ -42,14 +42,14 @@ export const getCategoryLabel = (category, language = 'en') => {
 
   // Return translated category or original if not found
   return categoryTranslations[language]?.[category] || category;
-};
+}
 
 /**
  * Get all category options for the current language
  * @param {string} language - Current language ('en' or 'ar')
  * @returns {Array} Array of category names in current language
  */
-export const getCategoryOptions = (language = 'en') => {
+export function getCategoryOptions(language = 'en') {
   const categories = [
     'All',
     'Fiction',
@@ -69,4 +69,11 @@ export const getCategoryOptions = (language = 'en') => {
   ];
 
   return categories;
+}
+
+const categoryHelpers = {
+  getCategoryLabel,
+  getCategoryOptions,
 };
+
+export default categoryHelpers;
