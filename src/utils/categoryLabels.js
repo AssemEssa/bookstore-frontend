@@ -43,3 +43,30 @@ export const getCategoryLabel = (category, language = 'en') => {
   // Return translated category or original if not found
   return categoryTranslations[language]?.[category] || category;
 };
+
+/**
+ * Get all category options for the current language
+ * @param {string} language - Current language ('en' or 'ar')
+ * @returns {Array} Array of category names in current language
+ */
+export const getCategoryOptions = (language = 'en') => {
+  const categories = [
+    'All',
+    'Fiction',
+    'Non-Fiction',
+    'Mystery',
+    'Thriller',
+    'Romance',
+    'Sci-Fi',
+    'Fantasy',
+    'Biography',
+    'History',
+    'Self-Help',
+    'Business',
+    'Technology',
+    'Children',
+    'Young Adult',
+  ];
+
+  return categories;
+};
