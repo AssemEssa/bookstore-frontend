@@ -46,7 +46,7 @@ const Cart = () => {
                 <div className="cart-item-details">
                   <h3 className="cart-item-title">{item.title}</h3>
                   <p className="cart-item-author">by {item.author}</p>
-                  <p className="cart-item-price">${item.price}</p>
+                  <p className="cart-item-price">£{item.price}</p>
                 </div>
                 <div className="cart-item-actions">
                   <div className="quantity-controls">
@@ -76,7 +76,7 @@ const Cart = () => {
                   </button>
                 </div>
                 <div className="cart-item-total">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  £{(item.price * item.quantity).toFixed(2)}
                 </div>
               </div>
             ))}
@@ -86,20 +86,20 @@ const Cart = () => {
             <h2 className="summary-title">Order Summary</h2>
             <div className="summary-row">
               <span>Subtotal</span>
-              <span>${getCartTotal().toFixed(2)}</span>
+              <span>£{getCartTotal().toFixed(2)}</span>
             </div>
             <div className="summary-row">
               <span>Shipping</span>
-              <span>$5.00</span>
+              <span>£5.00</span>
             </div>
             <div className="summary-row">
               <span>Tax (10%)</span>
-              <span>${(getCartTotal() * 0.1).toFixed(2)}</span>
+              <span>£{(getCartTotal() * 0.1).toFixed(2)}</span>
             </div>
             <div className="summary-divider"></div>
             <div className="summary-row summary-total">
               <span>Total</span>
-              <span>${(getCartTotal() + 5 + getCartTotal() * 0.1).toFixed(2)}</span>
+              <span>£{(getCartTotal() + 5 + getCartTotal() * 0.1).toFixed(2)}</span>
             </div>
             <Link to="/checkout" className="btn btn-primary btn-lg">
               Proceed to Checkout

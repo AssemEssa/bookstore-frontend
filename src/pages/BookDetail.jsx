@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 import { getImageUrl } from '../utils/imageUrl';
+import { getCategoryLabel } from '../utils/categoryLabels';
 import './BookDetail.css';
 
 const BookDetail = () => {
@@ -12,6 +14,7 @@ const BookDetail = () => {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
+  const { language } = useLanguage();
 
   useEffect(() => {
     fetchBook();
@@ -66,7 +69,7 @@ const BookDetail = () => {
           </div>
 
           <div className="book-detail-content">
-            <div className="book-detail-category">{book.category}</div>
+            <div className="book-detail-category">{getCategoryLabel(book.category, language)}</div>
             <h1 className="book-detail-title">{book.title}</h1>
             <p className="book-detail-author">by {book.author}</p>
 
@@ -78,9 +81,9 @@ const BookDetail = () => {
             </div>
 
             <div className="book-detail-price">
-              <span className="current-price">${book.price}</span>
+              <span className="current-price">£{book.price}</span>
               {book.originalPrice > book.price && (
-                <span className="original-price">${book.originalPrice}</span>
+                <span className="original-price">£{book.originalPrice}</span>
               )}
             </div>
 

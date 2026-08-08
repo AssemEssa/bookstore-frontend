@@ -13,10 +13,12 @@ const Checkout = () => {
     street: '',
     city: '',
     state: '',
-    zipCode: '',
+    phoneNumber: '',
     country: '',
-    paymentMethod: 'credit_card',
+    paymentMethod: 'cash_on_delivery',
   });
+
+  const currency = '£';
 
   const subtotal = getCartTotal();
   const shippingCost = 5;
@@ -43,7 +45,7 @@ const Checkout = () => {
           street: formData.street,
           city: formData.city,
           state: formData.state,
-          zipCode: formData.zipCode,
+          phoneNumber: formData.phoneNumber,
           country: formData.country,
         },
         paymentMethod: formData.paymentMethod,
@@ -122,12 +124,13 @@ const Checkout = () => {
               </div>
               <div className="form-row">
                 <div className="form-group">
-                  <label className="form-label">ZIP Code</label>
+                  <label className="form-label">Phone Number</label>
                   <input
-                    type="text"
-                    name="zipCode"
+                    type="tel"
+                    name="phoneNumber"
                     className="form-input"
-                    value={formData.zipCode}
+                    placeholder="+44 1234 567890"
+                    value={formData.phoneNumber}
                     onChange={handleChange}
                     required
                   />
@@ -149,36 +152,6 @@ const Checkout = () => {
             <div className="form-section">
               <h2 className="section-title">Payment Method</h2>
               <div className="payment-options">
-                <label className="payment-option">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="credit_card"
-                    checked={formData.paymentMethod === 'credit_card'}
-                    onChange={handleChange}
-                  />
-                  <span>Credit Card</span>
-                </label>
-                <label className="payment-option">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="debit_card"
-                    checked={formData.paymentMethod === 'debit_card'}
-                    onChange={handleChange}
-                  />
-                  <span>Debit Card</span>
-                </label>
-                <label className="payment-option">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="paypal"
-                    checked={formData.paymentMethod === 'paypal'}
-                    onChange={handleChange}
-                  />
-                  <span>PayPal</span>
-                </label>
                 <label className="payment-option">
                   <input
                     type="radio"
@@ -207,27 +180,27 @@ const Checkout = () => {
                     <p className="item-title">{item.title}</p>
                     <p className="item-quantity">Qty: {item.quantity}</p>
                   </div>
-                  <span className="item-price">${(item.price * item.quantity).toFixed(2)}</span>
+                  <span className="item-price">{currency}{(item.price * item.quantity).toFixed(2)}</span>
                 </div>
               ))}
             </div>
             <div className="summary-totals">
               <div className="summary-row">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>{currency}{subtotal.toFixed(2)}</span>
               </div>
               <div className="summary-row">
                 <span>Shipping</span>
-                <span>${shippingCost.toFixed(2)}</span>
+                <span>{currency}{shippingCost.toFixed(2)}</span>
               </div>
               <div className="summary-row">
                 <span>Tax</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>{currency}{tax.toFixed(2)}</span>
               </div>
               <div className="summary-divider"></div>
               <div className="summary-row summary-total">
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>{currency}{total.toFixed(2)}</span>
               </div>
             </div>
           </div>

@@ -33,6 +33,19 @@ const Profile = () => {
     return colors[status] || 'var(--gray-500)';
   };
 
+  const handleDeleteOrder = async (orderId) => {
+    if (window.confirm('Are you sure you want to delete this cancelled order?')) {
+      try {
+        await axios.delete(`/api/orders/${orderId}`);
+        fetchOrders();
+        alert('Order deleted successfully!');
+      } catch (error) {
+        console.error('Error deleting order:', error);
+        alert(error.response?.data?.message || 'Failed to delete order');
+      }
+    }
+  };
+
   return (
     <div className="profile-page">
       <div className="container">
@@ -96,15 +109,26 @@ const Profile = () => {
                             <p className="order-item-quantity">Qty: {item.quantity}</p>
                           </div>
                           <span className="order-item-price">
-                            ${(item.price * item.quantity).toFixed(2)}
+                            £{(item.price * item.quantity).toFixed(2)}
                           </span>
                         </div>
                       ))}
                     </div>
                     <div className="order-footer">
                       <span className="order-total-label">Total:</span>
-                      <span className="order-total">${order.total.toFixed(2)}</span>
+                      <span className="order-total">£{order.total.toFixed(2)}</span>
+                      {order.orderStatus === 'cancelled' && (
+                        <button 
+                          className="btn-delete-order"
+                          onClick={() => handleDeleteOrder(order._id)}
+                        >
+                          Delete Order
+                        </button>
+                      )}
                     </div>
+                    {order.orderStatus === 'cancelled' && order.cancellationReason && (
+                      <div className="order-cancel-reason">Reason: {order.cancellationReason}</div>
+                    )}
                   </div>
                 ))}
               </div>

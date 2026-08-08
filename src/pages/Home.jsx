@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 import { getImageUrl } from '../utils/imageUrl';
+import { getCategoryLabel } from '../utils/categoryLabels';
 import './Home.css';
 
 const Home = () => {
@@ -10,6 +12,7 @@ const Home = () => {
   const [bestsellers, setBestsellers] = useState([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
+  const { language } = useLanguage();
 
   useEffect(() => {
     fetchBooks();
@@ -62,7 +65,7 @@ const Home = () => {
         )}
       </div>
       <div className="book-card-content">
-        <div className="book-category">{book.category}</div>
+        <div className="book-category">{getCategoryLabel(book.category, language)}</div>
         <h3 className="book-title">{book.title}</h3>
         <p className="book-author">by {book.author}</p>
         <div className="book-rating">
@@ -71,9 +74,9 @@ const Home = () => {
         </div>
         <div className="book-footer">
           <div className="book-price">
-            <span className="current-price">${book.price}</span>
+            <span className="current-price">£{book.price}</span>
             {book.originalPrice > book.price && (
-              <span className="original-price">${book.originalPrice}</span>
+              <span className="original-price">£{book.originalPrice}</span>
             )}
           </div>
           <button

@@ -104,6 +104,27 @@
   font-family: var(--font-primary);
 }
 
+.btn-logout {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-logout:hover {
+  color: white;
+  transform: translateY(-1px);
+}
+
+.nav-auth-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+}
+
 .cart-button {
   position: relative;
   padding: 10px 16px;

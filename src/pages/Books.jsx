@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 import { getImageUrl } from '../utils/imageUrl';
+import { getCategoryLabel, getCategoryOptions } from '../utils/categoryLabels';
 import './Books.css';
 
 const Books = () => {
@@ -15,22 +17,9 @@ const Books = () => {
     sort: '-createdAt',
   });
   const { addToCart } = useCart();
+  const { language } = useLanguage();
 
-  const categories = [
-    'All',
-    'Fiction',
-    'Non-Fiction',
-    'Mystery',
-    'Thriller',
-    'Romance',
-    'Sci-Fi',
-    'Fantasy',
-    'Biography',
-    'History',
-    'Self-Help',
-    'Business',
-    'Technology',
-  ];
+  const categories = getCategoryOptions(language);
 
   useEffect(() => {
     fetchBooks();
@@ -126,16 +115,16 @@ const Books = () => {
               <div className="category-list">
                 {categories.map((category) => (
                   <button
-                    key={category}
+                    key={category.value || 'all'}
                     className={`category-btn ${
-                      (category === 'All' && !filters.category) ||
-                      filters.category === category
+                      (category.value === '' && !filters.category) ||
+                      filters.category === category.value
                         ? 'active'
                         : ''
                     }`}
-                    onClick={() => handleCategoryChange(category)}
+                    onClick={() => handleCategoryChange(category.value)}
                   >
-                    {category}
+                    {category.label}
                   </button>
                 ))}
               </div>
@@ -195,7 +184,7 @@ const Books = () => {
                         )}
                       </div>
                       <div className="book-card-content">
-                        <div className="book-category">{book.category}</div>
+                        <div className="book-category">{getCategoryLabel(book.category, language)}</div>
                         <h3 className="book-title">{book.title}</h3>
                         <p className="book-author">by {book.author}</p>
                         <div className="book-rating">
@@ -213,10 +202,10 @@ const Books = () => {
                         </div>
                         <div className="book-footer">
                           <div className="book-price">
-                            <span className="current-price">${book.price}</span>
+                            <span className="current-price">£{book.price}</span>
                             {book.originalPrice > book.price && (
                               <span className="original-price">
-                                ${book.originalPrice}
+                                £{book.originalPrice}
                               </span>
                             )}
                           </div>

@@ -36,14 +36,16 @@ const Navbar = () => {
                   {t('nav.admin')}
                 </Link>
               )}
-              <button onClick={handleLogout} className="nav-link btn-link">
-                {t('nav.logout')}
+              <button onClick={handleLogout} className="btn btn-outline btn-sm nav-auth-btn btn-logout">
+                🚪 {t('nav.logout')}
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-link">{t('nav.login')}</Link>
-              <Link to="/register" className="btn btn-primary btn-sm">
+              <Link to="/login" className="btn btn-primary btn-sm nav-auth-btn">
+                {t('nav.login')}
+              </Link>
+              <Link to="/register" className="btn btn-outline btn-sm nav-auth-btn">
                 {t('nav.signup')}
               </Link>
             </>

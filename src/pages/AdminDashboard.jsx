@@ -19,7 +19,7 @@ const AdminDashboard = () => {
     description: '',
     price: '',
     originalPrice: '',
-    category: 'Fiction',
+    category: '',
     stock: '',
     coverImage: '',
   });
@@ -80,7 +80,7 @@ const AdminDashboard = () => {
         description: '',
         price: '',
         originalPrice: '',
-        category: 'Fiction',
+        category: '',
         stock: '',
         coverImage: '',
       });
@@ -138,7 +138,19 @@ const AdminDashboard = () => {
 
   const handleUpdateOrderStatus = async (orderId, status) => {
     try {
-      await axios.put(`/api/orders/${orderId}/status`, { orderStatus: status });
+      let cancellationReason = '';
+      if (status === 'cancelled') {
+        cancellationReason = prompt('Please enter cancellation reason:');
+        if (!cancellationReason) {
+          alert('Cancellation reason is required');
+          return;
+        }
+      }
+
+      await axios.put(`/api/orders/${orderId}/status`, {
+        orderStatus: status,
+        cancellationReason,
+      });
       fetchData();
       alert('Order status updated!');
     } catch (error) {
@@ -146,6 +158,25 @@ const AdminDashboard = () => {
       alert('Failed to update order');
     }
   };
+
+  const handleDeleteOrder = async (orderId) => {
+    if (window.confirm('Are you sure you want to delete this order?')) {
+      try {
+        await axios.delete(`/api/orders/${orderId}`);
+        fetchData();
+        alert('Order deleted successfully!');
+      } catch (error) {
+        console.error('Error deleting order:', error);
+        alert('Failed to delete order');
+      }
+    }
+  };
+
+  const isOrderDeletable = (order) => {
+    return order.orderStatus === 'cancelled';
+  };
+
+  const isOrderDeletable = (order) => order.orderStatus === 'cancelled';
 
   return (
     <div className="admin-page">
@@ -220,7 +251,7 @@ const AdminDashboard = () => {
                             <td>{book.title}</td>
                             <td>{book.author}</td>
                             <td>{book.category}</td>
-                            <td>${book.price}</td>
+                            <td>£{book.price}</td>
                             <td>{book.stock}</td>
                             <td>
                               <button
@@ -247,6 +278,7 @@ const AdminDashboard = () => {
                         <tr>
                           <th>Order ID</th>
                           <th>Customer</th>
+                          <th>Phone</th>
                           <th>Total</th>
                           <th>Status</th>
                           <th>Date</th>
@@ -258,26 +290,40 @@ const AdminDashboard = () => {
                           <tr key={order._id}>
                             <td>#{order._id.slice(-8)}</td>
                             <td>{order.user?.name}</td>
-                            <td>${order.total.toFixed(2)}</td>
+                            <td>{order.shippingAddress?.phoneNumber || 'N/A'}</td>
+                            <td>£{order.total.toFixed(2)}</td>
                             <td>
                               <span className={`status-badge ${order.orderStatus}`}>
                                 {order.orderStatus}
                               </span>
+                              {order.orderStatus === 'cancelled' && order.cancellationReason && (
+                                <div className="order-reason">Reason: {order.cancellationReason}</div>
+                              )}
                             </td>
                             <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                             <td>
-                              <select
-                                className="status-select"
-                                value={order.orderStatus}
-                                onChange={(e) =>
-                                  handleUpdateOrderStatus(order._id, e.target.value)
-                                }
-                              >
-                                <option value="processing">Processing</option>
-                                <option value="shipped">Shipped</option>
-                                <option value="delivered">Delivered</option>
-                                <option value="cancelled">Cancelled</option>
-                              </select>
+                              <div className="order-actions-cell">
+                                <select
+                                  className="status-select"
+                                  value={order.orderStatus}
+                                  onChange={(e) =>
+                                    handleUpdateOrderStatus(order._id, e.target.value)
+                                  }
+                                >
+                                  <option value="processing">Processing</option>
+                                  <option value="shipped">Shipped</option>
+                                  <option value="delivered">Delivered</option>
+                                  <option value="cancelled">Cancelled</option>
+                                </select>
+                                {isOrderDeletable(order) && (
+                                  <button
+                                    className="btn-danger btn-sm"
+                                    onClick={() => handleDeleteOrder(order._id)}
+                                  >
+                                    Delete
+                                  </button>
+                                )}
+                              </div>
                             </td>
                           </tr>
                         ))}
@@ -431,26 +477,16 @@ const AdminDashboard = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label className="form-label">Category</label>
-                    <select
+                    <input
+                      type="text"
                       className="form-input"
+                      placeholder="e.g., Fiction, Fantasy, History"
                       value={bookForm.category}
                       onChange={(e) =>
                         setBookForm({ ...bookForm, category: e.target.value })
                       }
-                    >
-                      <option>Fiction</option>
-                      <option>Non-Fiction</option>
-                      <option>Mystery</option>
-                      <option>Thriller</option>
-                      <option>Romance</option>
-                      <option>Sci-Fi</option>
-                      <option>Fantasy</option>
-                      <option>Biography</option>
-                      <option>History</option>
-                      <option>Self-Help</option>
-                      <option>Business</option>
-                      <option>Technology</option>
-                    </select>
+                      required
+                    />
                   </div>
                   <div className="form-group">
                     <label className="form-label">Stock</label>
