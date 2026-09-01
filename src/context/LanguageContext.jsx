@@ -147,6 +147,8 @@ const translations = {
     'checkout.debitCard': 'Debit Card',
     'checkout.paypal': 'PayPal',
     'checkout.cashOnDelivery': 'Cash on Delivery',
+    'checkout.instapay': 'Instapay',
+    'checkout.etisalatCash': 'Etisalat Cash',
     'checkout.placeOrder': 'Place Order',
     'checkout.processing': 'Processing...',
 
@@ -352,6 +354,8 @@ const translations = {
     'checkout.debitCard': 'بطاقة خصم',
     'checkout.paypal': 'باي بال',
     'checkout.cashOnDelivery': 'الدفع عند الاستلام',
+    'checkout.instapay': 'إنستاباي',
+    'checkout.etisalatCash': 'اتصالات كاش',
     'checkout.placeOrder': 'تأكيد الطلب',
     'checkout.processing': 'جاري المعالجة...',
 

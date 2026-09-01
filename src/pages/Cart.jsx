@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 import { getImageUrl } from '../utils/imageUrl';
 import './Cart.css';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
+  const { t } = useLanguage();
 
   const handleQuantityChange = (bookId, newQuantity) => {
     if (newQuantity >= 1) {
@@ -18,10 +20,10 @@ const Cart = () => {
         <div className="container">
           <div className="empty-state">
             <div className="empty-state-icon">🛒</div>
-            <h2>Your cart is empty</h2>
-            <p>Start adding some books to your collection!</p>
+            <h2>{t('cart.empty')}</h2>
+            <p>{t('cart.emptyText')}</p>
             <Link to="/books" className="btn btn-primary btn-lg">
-              Browse Books
+              {t('cart.browse')}
             </Link>
           </div>
         </div>
@@ -32,7 +34,7 @@ const Cart = () => {
   return (
     <div className="cart-page">
       <div className="container">
-        <h1 className="page-title">Shopping Cart</h1>
+        <h1 className="page-title">{t('cart.title')}</h1>
 
         <div className="cart-container">
           <div className="cart-items">
@@ -72,7 +74,7 @@ const Cart = () => {
                     onClick={() => removeFromCart(item._id)}
                     className="remove-btn"
                   >
-                    Remove
+                    {t('cart.remove')}
                   </button>
                 </div>
                 <div className="cart-item-total">
@@ -83,25 +85,25 @@ const Cart = () => {
           </div>
 
           <div className="cart-summary">
-            <h2 className="summary-title">Order Summary</h2>
+            <h2 className="summary-title">{t('cart.summary')}</h2>
             <div className="summary-row">
-              <span>Subtotal</span>
+              <span>{t('cart.subtotal')}</span>
               <span>£{getCartTotal().toFixed(2)}</span>
             </div>
             <div className="summary-row">
-              <span>Shipping</span>
+              <span>{t('cart.shipping')}</span>
               <span>£5.00</span>
             </div>
             <div className="summary-divider"></div>
             <div className="summary-row summary-total">
-              <span>Total</span>
+              <span>{t('cart.total')}</span>
               <span>£{(getCartTotal() + 5).toFixed(2)}</span>
             </div>
             <Link to="/checkout" className="btn btn-primary btn-lg">
-              Proceed to Checkout
+              {t('cart.checkout')}
             </Link>
             <Link to="/books" className="continue-shopping">
-              Continue Shopping
+              {t('cart.continueShopping')}
             </Link>
           </div>
         </div>

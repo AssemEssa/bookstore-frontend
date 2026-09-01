@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 import { getImageUrl } from '../utils/imageUrl';
 import './Checkout.css';
 
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -81,14 +83,14 @@ const Checkout = () => {
   return (
     <div className="checkout-page">
       <div className="container">
-        <h1 className="page-title">Checkout</h1>
+        <h1 className="page-title">{t('checkout.title')}</h1>
 
         <div className="checkout-container">
           <form onSubmit={handleSubmit} className="checkout-form">
             <div className="form-section">
-              <h2 className="section-title">Shipping Address</h2>
+              <h2 className="section-title">{t('checkout.shippingAddress')}</h2>
               <div className="form-group">
-                <label className="form-label">Street Address</label>
+                <label className="form-label">{t('checkout.street')}</label>
                 <input
                   type="text"
                   name="street"
@@ -100,7 +102,7 @@ const Checkout = () => {
               </div>
               <div className="form-row">
                 <div className="form-group">
-                  <label className="form-label">City</label>
+                  <label className="form-label">{t('checkout.city')}</label>
                   <input
                     type="text"
                     name="city"
@@ -111,7 +113,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">State</label>
+                  <label className="form-label">{t('checkout.state')}</label>
                   <input
                     type="text"
                     name="state"
@@ -124,7 +126,7 @@ const Checkout = () => {
               </div>
               <div className="form-row">
                 <div className="form-group">
-                  <label className="form-label">Phone Number</label>
+                  <label className="form-label">{t('checkout.zipCode')}</label>
                   <input
                     type="tel"
                     name="phoneNumber"
@@ -136,7 +138,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Country</label>
+                  <label className="form-label">{t('checkout.country')}</label>
                   <input
                     type="text"
                     name="country"
@@ -150,7 +152,7 @@ const Checkout = () => {
             </div>
 
             <div className="form-section">
-              <h2 className="section-title">Payment Method</h2>
+              <h2 className="section-title">{t('checkout.paymentMethod')}</h2>
               <div className="payment-options">
                 <label className="payment-option">
                   <input
@@ -162,7 +164,7 @@ const Checkout = () => {
                   />
                   <div className="payment-option-content">
                     <span className="payment-icon">💵</span>
-                    <span className="payment-text">Cash on Delivery</span>
+                    <span className="payment-text">{t('checkout.cashOnDelivery')}</span>
                   </div>
                 </label>
                 <label className="payment-option">
@@ -175,7 +177,7 @@ const Checkout = () => {
                   />
                   <div className="payment-option-content">
                     <span className="payment-icon">📱</span>
-                    <span className="payment-text">Instapay</span>
+                    <span className="payment-text">{t('checkout.instapay')}</span>
                   </div>
                 </label>
                 <label className="payment-option">
@@ -188,19 +190,19 @@ const Checkout = () => {
                   />
                   <div className="payment-option-content">
                     <span className="payment-icon">💳</span>
-                    <span className="payment-text">Etisalat Cash</span>
+                    <span className="payment-text">{t('checkout.etisalatCash')}</span>
                   </div>
                 </label>
               </div>
             </div>
 
             <button type="submit" className="btn btn-primary btn-lg" disabled={loading}>
-              {loading ? 'Processing...' : 'Place Order'}
+              {loading ? t('checkout.processing') : t('checkout.placeOrder')}
             </button>
           </form>
 
           <div className="checkout-summary">
-            <h2 className="summary-title">Order Summary</h2>
+            <h2 className="summary-title">{t('cart.summary')}</h2>
             <div className="summary-items">
               {cartItems.map((item) => (
                 <div key={item._id} className="summary-item">
@@ -215,16 +217,16 @@ const Checkout = () => {
             </div>
             <div className="summary-totals">
               <div className="summary-row">
-                <span>Subtotal</span>
+                <span>{t('cart.subtotal')}</span>
                 <span>{currency}{subtotal.toFixed(2)}</span>
               </div>
               <div className="summary-row">
-                <span>Shipping</span>
+                <span>{t('cart.shipping')}</span>
                 <span>{currency}{shippingCost.toFixed(2)}</span>
               </div>
               <div className="summary-divider"></div>
               <div className="summary-row summary-total">
-                <span>Total</span>
+                <span>{t('cart.total')}</span>
                 <span>{currency}{total.toFixed(2)}</span>
               </div>
             </div>
