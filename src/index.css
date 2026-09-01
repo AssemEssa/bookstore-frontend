@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
 :root {
   /* Premium color palette */
   --primary: #6366f1;
@@ -59,6 +64,10 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 /* RTL Support */
@@ -396,8 +405,12 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
   .container-fluid {
-    padding: 0 20px;
+    padding: 0 16px;
   }
   
   .grid-2,
@@ -405,4 +418,65 @@ body {
   .grid-4 {
     grid-template-columns: 1fr;
   }
+
+  .btn-lg {
+    padding: 14px 24px;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .form-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .container,
+  .container-fluid {
+    padding: 0 12px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+body, html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Touch-friendly tap targets (minimum 44x44px) */
+button,
+a,
+input,
+select,
+textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Better tap highlighting on mobile */
+* {
+  -webkit-tap-highlight-color: rgba(99, 102, 241, 0.2);
 }
