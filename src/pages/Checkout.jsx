@@ -160,7 +160,36 @@ const Checkout = () => {
                     checked={formData.paymentMethod === 'cash_on_delivery'}
                     onChange={handleChange}
                   />
-                  <span>Cash on Delivery</span>
+                  <div className="payment-option-content">
+                    <span className="payment-icon">💵</span>
+                    <span className="payment-text">Cash on Delivery</span>
+                  </div>
+                </label>
+                <label className="payment-option">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="instapay"
+                    checked={formData.paymentMethod === 'instapay'}
+                    onChange={handleChange}
+                  />
+                  <div className="payment-option-content">
+                    <span className="payment-icon">📱</span>
+                    <span className="payment-text">Instapay</span>
+                  </div>
+                </label>
+                <label className="payment-option">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="etisalat_cash"
+                    checked={formData.paymentMethod === 'etisalat_cash'}
+                    onChange={handleChange}
+                  />
+                  <div className="payment-option-content">
+                    <span className="payment-icon">💳</span>
+                    <span className="payment-text">Etisalat Cash</span>
+                  </div>
                 </label>
               </div>
             </div>

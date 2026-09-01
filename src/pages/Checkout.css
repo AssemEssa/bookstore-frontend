@@ -41,35 +41,59 @@
 
 .payment-options {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
 .payment-option {
   display: flex;
   align-items: center;
-  gap: 12px;
   padding: 16px;
   border: 2px solid var(--gray-200);
   border-radius: 12px;
   cursor: pointer;
   transition: var(--transition);
-  font-weight: 600;
+  background: white;
 }
 
 .payment-option:hover {
   border-color: var(--primary);
   background: var(--gray-50);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 .payment-option input[type="radio"] {
   width: 20px;
   height: 20px;
   cursor: pointer;
+  margin-right: 12px;
 }
 
-.payment-option input[type="radio"]:checked + span {
+.payment-option input[type="radio"]:checked ~ .payment-option-content {
   color: var(--primary);
+}
+
+.payment-option:has(input[type="radio"]:checked) {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.05);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.payment-option-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.payment-icon {
+  font-size: 1.5rem;
+}
+
+.payment-text {
+  font-size: 1rem;
 }
 
 .checkout-summary {
