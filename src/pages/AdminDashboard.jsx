@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getImageUrl } from '../utils/imageUrl';
+import { getCategoryNames } from '../utils/categoryLabels';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -23,6 +24,9 @@ const AdminDashboard = () => {
     stock: '',
     coverImage: '',
   });
+
+  // Get category names for dropdown
+  const categoryOptions = getCategoryNames();
 
   useEffect(() => {
     fetchData();
@@ -475,16 +479,21 @@ const AdminDashboard = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label className="form-label">Category</label>
-                    <input
-                      type="text"
+                    <select
                       className="form-input"
-                      placeholder="e.g., Fiction, Fantasy, History"
                       value={bookForm.category}
                       onChange={(e) =>
                         setBookForm({ ...bookForm, category: e.target.value })
                       }
                       required
-                    />
+                    >
+                      <option value="">-- Select Category --</option>
+                      {categoryOptions.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="form-group">
                     <label className="form-label">Stock</label>

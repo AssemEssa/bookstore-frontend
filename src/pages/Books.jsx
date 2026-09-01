@@ -11,6 +11,8 @@ const Books = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quantities, setQuantities] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState({
     category: '',
     search: '',
@@ -23,7 +25,7 @@ const Books = () => {
 
   useEffect(() => {
     fetchBooks();
-  }, [filters]);
+  }, [filters, currentPage]);
 
   const fetchBooks = async () => {
     setLoading(true);
@@ -36,9 +38,12 @@ const Books = () => {
         params.append('search', filters.search);
       }
       params.append('sort', filters.sort);
+      params.append('limit', '4'); // 4 books per page
+      params.append('page', currentPage.toString());
 
       const { data } = await axios.get(`/api/books?${params}`);
       setBooks(data.data);
+      setTotalPages(data.totalPages || 1);
       
       // Initialize quantities for all books
       const initialQuantities = {};
@@ -55,14 +60,17 @@ const Books = () => {
 
   const handleSearch = (e) => {
     setFilters({ ...filters, search: e.target.value });
+    setCurrentPage(1); // Reset to page 1
   };
 
   const handleCategoryChange = (category) => {
     setFilters({ ...filters, category: category === 'All' ? '' : category });
+    setCurrentPage(1); // Reset to page 1
   };
 
   const handleSortChange = (e) => {
     setFilters({ ...filters, sort: e.target.value });
+    setCurrentPage(1); // Reset to page 1
   };
 
   const renderStars = (rating) => {
@@ -246,6 +254,39 @@ const Books = () => {
                     </Link>
                   ))}
                 </div>
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="pagination">
+                    <button
+                      className="pagination-btn"
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      disabled={currentPage === 1}
+                    >
+                      ← Previous
+                    </button>
+
+                    <div className="pagination-numbers">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
+                        <button
+                          key={pageNum}
+                          className={`pagination-number ${currentPage === pageNum ? 'active' : ''}`}
+                          onClick={() => setCurrentPage(pageNum)}
+                        >
+                          {pageNum}
+                        </button>
+                      ))}
+                    </div>
+
+                    <button
+                      className="pagination-btn"
+                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next →
+                    </button>
+                  </div>
+                )}
               </>
             )}
           </main>

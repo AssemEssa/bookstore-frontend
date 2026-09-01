@@ -47,11 +47,10 @@ export function getCategoryLabel(category, language = 'en') {
 /**
  * Get all category options for the current language
  * @param {string} language - Current language ('en' or 'ar')
- * @returns {Array} Array of category names in current language
+ * @returns {Array} Array of category objects with value and label
  */
 export function getCategoryOptions(language = 'en') {
   const categories = [
-    'All',
     'Fiction',
     'Non-Fiction',
     'Mystery',
@@ -68,12 +67,45 @@ export function getCategoryOptions(language = 'en') {
     'Young Adult',
   ];
 
-  return categories;
+  // For the filter sidebar, return objects with value and label
+  const categoryObjects = [
+    { value: '', label: language === 'ar' ? 'الكل' : 'All' },
+    ...categories.map(cat => ({
+      value: cat,
+      label: getCategoryLabel(cat, language)
+    }))
+  ];
+
+  return categoryObjects;
+}
+
+/**
+ * Get all category names (for admin forms)
+ * @returns {Array} Array of category names in English
+ */
+export function getCategoryNames() {
+  return [
+    'Fiction',
+    'Non-Fiction',
+    'Mystery',
+    'Thriller',
+    'Romance',
+    'Sci-Fi',
+    'Fantasy',
+    'Biography',
+    'History',
+    'Self-Help',
+    'Business',
+    'Technology',
+    'Children',
+    'Young Adult',
+  ];
 }
 
 const categoryHelpers = {
   getCategoryLabel,
   getCategoryOptions,
+  getCategoryNames,
 };
 
 export default categoryHelpers;
