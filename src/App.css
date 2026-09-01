@@ -10,6 +10,19 @@
   min-height: calc(100vh - 80px);
 }
 
+/* Responsive main content padding */
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding-top: 60px;
+  }
+}
+
 /* Loading spinner */
 .loading {
   display: flex;
