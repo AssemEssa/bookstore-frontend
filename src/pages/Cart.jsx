@@ -92,14 +92,10 @@ const Cart = () => {
               <span>Shipping</span>
               <span>£5.00</span>
             </div>
-            <div className="summary-row">
-              <span>Tax (10%)</span>
-              <span>£{(getCartTotal() * 0.1).toFixed(2)}</span>
-            </div>
             <div className="summary-divider"></div>
             <div className="summary-row summary-total">
               <span>Total</span>
-              <span>£{(getCartTotal() + 5 + getCartTotal() * 0.1).toFixed(2)}</span>
+              <span>£{(getCartTotal() + 5).toFixed(2)}</span>
             </div>
             <Link to="/checkout" className="btn btn-primary btn-lg">
               Proceed to Checkout

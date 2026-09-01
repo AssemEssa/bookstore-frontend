@@ -22,8 +22,8 @@ const Checkout = () => {
 
   const subtotal = getCartTotal();
   const shippingCost = 5;
-  const tax = subtotal * 0.1;
-  const total = subtotal + shippingCost + tax;
+  const tax = 0; // No tax
+  const total = subtotal + shippingCost;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -221,10 +221,6 @@ const Checkout = () => {
               <div className="summary-row">
                 <span>Shipping</span>
                 <span>{currency}{shippingCost.toFixed(2)}</span>
-              </div>
-              <div className="summary-row">
-                <span>Tax</span>
-                <span>{currency}{tax.toFixed(2)}</span>
               </div>
               <div className="summary-divider"></div>
               <div className="summary-row summary-total">
